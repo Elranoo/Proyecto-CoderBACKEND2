@@ -6,7 +6,7 @@ import { createHash } from "../utils/bcrypt.js";
 
 const router = Router();
 
-/* REGISTER */
+
 router.post("/register", async (req, res) => {
   const { first_name, last_name, email, age, password } = req.body;
 
@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
   res.send({ status: "success", user });
 });
 
-/* LOGIN */
+
 router.post("/login",
   passport.authenticate("login", { session: false }),
   (req, res) => {
@@ -40,7 +40,7 @@ router.post("/login",
   }
 );
 
-/* CURRENT */
+
 router.get("/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
