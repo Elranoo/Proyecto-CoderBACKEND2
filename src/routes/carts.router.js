@@ -35,4 +35,19 @@ router.post(
   }
 );
 
+router.get(
+  "/:cid",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const cart = await CartModel.findById(req.params.cid)
+      .populate("products.product");
+
+    if (!cart) {
+      return res.status(404).send({ status: "error", message: "Carrito no encontrado" });
+    }
+
+    res.send(cart);
+  }
+);
+
 export default router;

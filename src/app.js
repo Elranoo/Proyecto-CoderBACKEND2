@@ -17,11 +17,16 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
-app.use(cookieParser(process.env.JWT_SECRET));
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+app.use(cookieParser());
 
 initializePassport();
 app.use(passport.initialize());
+
+app.use(express.static("public"));
 
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/products", productsRouter);
